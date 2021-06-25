@@ -1,9 +1,9 @@
 import os
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-from telegram import ParseMode, Poll, Update
+from telegram import ParseMode, Poll, Update, User
 from telegram.ext import *
 from telegram.utils import helpers
+from telegram.error import *
 
 import pandas as pd
 import numpy as np
@@ -21,13 +21,31 @@ print("Bot started at: "+str(datetime.datetime.now()))
 def link_builder(text: str, url: str):
     return "["+f"{text}"+"]("+f"{url}"+")"
 
+def get_user(update):
+    first_name = update.message.chat.first_name
+    last_name = update.message.chat.last_name
+    user = update.message.chat.username
+
+    if user == None:
+        user = first_name + " " + last_name
+    
+    return user
+
+def log(update, function: str):
+    f = open(files_path + "log.txt", "a+")
+    f.write(f"{get_user(update)} used the {function} function.\n")
+    f.close()
+
 # Commands
 def start_command(update, context):
-    msg = "Buenos días! Soy el bot programado por DheltaHalo para informar " \
+    user = get_user(update)
+
+    msg = f"Buenos días {user}! Soy el bot programado por DheltaHalo para informar " \
           "de novedades en varios ámbitos de internet.\n" \
           "\nPara ver los comandos disponibles escribe /help."
 
     update.message.reply_text(msg)
+    log(update, "start")
 
 def milanuncios_command(update, context):
     bot = context.bot
@@ -62,6 +80,8 @@ def idealista_place(update: Update, context: CallbackContext):
         }
     }
     context.bot_data.update(payload)
+
+    log(update, "idealista")
 
 def idealista_place_answer(update: Update, context: CallbackContext):
     """Summarize a users poll vote"""
@@ -98,9 +118,14 @@ def help_command(update, context):
         txt += "/"+k+"\n"
 
     update.message.reply_text(txt)
+    log(update, "help")
 
 def error(update, context):
-    print("Error")
+    try:
+        raise context.error
+    except (Unauthorized, BadRequest, TimedOut, NetworkError, TelegramError):
+        print(1)
+
 
 def handle_message(update, context):
     text = str(update.message.text).lower()
@@ -109,9 +134,24 @@ def handle_message(update, context):
     update.message.reply_text(response)
 
 def main():
-    if not(os.path.isfile("files/anuncios.csv")):
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    
+    # Additional files and folders generation
+    global files_path
+    files_path = "files/"
+    folder = os.path.dirname(files_path)
+
+    if not(os.path.isdir(folder)):
+        os.mkdir(folder)
+
+    if not(os.path.isfile(files_path + "anuncios.csv")):
       scrap_m.main()
 
+    f = open(files_path + "log.txt", "a+")
+    f.write(f"TELEGRAM BOT LOG. TIME: {datetime.datetime.now()}\n")
+    f.close()
+
+    # Bot builder
     updater = Updater(keys.api_key)
     dp = updater.dispatcher
 

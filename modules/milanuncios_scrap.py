@@ -6,11 +6,9 @@ import requests
 import pandas as pd
 import numpy as np
 import os
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
-
 from requests.sessions import default_headers
 
-main_path = "../files/anuncios.csv"
+main_path = "files/anuncios.csv"
 
 def main(file_path: str = main_path):
     url = "https://www.milanuncios.com/ofertas-de-empleo-en-guadalajara/?fromSearch=1&demanda=n"
@@ -49,16 +47,10 @@ def main(file_path: str = main_path):
 
     if file_path != main_path:
         main_path = file_path
-
-    folder = os.path.dirname(main_path)
-
-    if not(os.path.isdir(folder)):
-        os.mkdir(folder)
-
+        
     df.to_csv(file_path, index = False)
 
 def decode():
-    global main_path
     df = pd.read_csv(main_path)
-    
+
     return df
