@@ -45,6 +45,7 @@ def start_command(update, context):
           "\nPara ver los comandos disponibles escribe /help."
 
     update.message.reply_text(msg)
+    
     log(update, "start")
 
 def milanuncios_command(update, context):
@@ -57,6 +58,8 @@ def milanuncios_command(update, context):
 
         msg =link_builder(text, url)
         update.message.reply_text(msg, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
+    
+    log(update, "milanuncios")
 
 def idealista_place(update: Update, context: CallbackContext):
     """Sends a predefined poll"""
