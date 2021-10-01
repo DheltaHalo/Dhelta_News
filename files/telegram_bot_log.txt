@@ -1,0 +1,20 @@
+Session started at: 2021-10-01 18:08:49.284128
+Session started at: 2021-10-01 18:09:48.831966
+Yago Hernández used the milanuncios function.
+Yago Hernández used the help function.
+Session started at: 2021-10-01 18:11:40.409611
+User "Yago Hernández" used help at .
+Session started at: 2021-10-01 18:12:17.588882
+User "Yago Hernández" used help (2021-10-01 18:12:18.113504)
+User "Yago Hernández" used start (2021-10-01 18:12:18.212245)
+Session started at: 2021-10-01 18:34:04.651990
+User "Yago Hernández" used milanuncios (2021-10-01 18:34:11.753045)
+Session started at: 2021-10-01 18:48:29.820024
+Session started at: 2021-10-01 18:54:29.647799
+Session started at: 2021-10-01 18:55:21.177966
+User "" used start (2021-10-01 18:55:24.916438)
+User "" used help (2021-10-01 18:55:42.625105)
+User "" used start (2021-10-01 18:55:45.979036)
+User "" used help (2021-10-01 18:55:48.463278)
+User "" used help (2021-10-01 18:56:18.119738)
+User "" used start (2021-10-01 18:56:19.619316)

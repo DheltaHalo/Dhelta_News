@@ -30,14 +30,14 @@ def get_user(update):
 
 def log(update, function: str):
     f = open(files_path + log_name, "a+")
-    f.write(f"User \"{get_user(update)}\" used {function} ({str(datetime.now())})\n")
+    f.write(f"User \"\" used {function} ({str(datetime.now())})\n")
     f.close()
 
 # Commands
 def start_command(update, context):
-    user = get_user(update)
+    #user = get_user(update)
 
-    msg = f"Buenos días {user}! Soy el bot programado por DheltaHalo para informar " \
+    msg = f"Buenos días! Soy el bot programado por DheltaHalo para informar " \
           "de novedades en varios ámbitos de internet.\n" \
           "\nPara ver los comandos disponibles escribe /help."
 
